@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSavings Financial Records</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .balance {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: green;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    .transactions {
+      margin-top: 20px;
+    }
+
+    .transactions ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .transactions li {
+      padding: 10px;
+      border-left: 5px solid #ccc;
+      margin-bottom: 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .income {
+      border-color: green;
+      color: green;
+    }
+
+    .expense {
+      border-color: red;
+      color: red;
+    }
+
+    .transaction-date {
+      font-size: 12px;
+      color: #555;
+      display: block;
+      margin-top: 4px;
+    }
+   
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal .modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+#passwordModal .modal-content input {
+  width: 80%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+#passwordModal .modal-content button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.modal .close {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#historyModal .modal-content {
+  max-width: 600px;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💰 JSavings</h2>
+    <div class="balance">Current Savings: ₱<span id="balance">0.00</span></div>
+
+    <h3>Add Money to Savings</h3>
+    <input type="number" id="addAmount" placeholder="Enter amount to add" />
+    <button onclick="addMoney()">Add to Savings</button>
+
+    <h3>Record an Expense</h3>
+    <input type="number" id="expenseAmount" placeholder="Enter expense amount" />
+    <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)" />
+    <button onclick="recordExpense()">Record Expense</button>
+
+    <div class="transactions">
+      <h3>Transaction History</h3>
+      <ul id="historyList"></ul>
+      <button id="showMoreBtn" onclick="openHistoryModal()">Show More</button>
+
+<div id="historyModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeHistoryModal()">&times;</span>
+    <h3>All Transactions</h3>
+    <ul id="fullHistoryList"></ul>
+  </div>
+</div>
+
+<div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePasswordModal()">&times;</span>
+      <h3>🔐 Enter Password</h3>
+      <input type="password" id="resetPassword" placeholder="Enter password" />
+      <button onclick="submitResetPassword()">Confirm Reset</button>
+    </div>
+  </div>
+  
+      <h3>📥 Export</h3>
+      <button onclick="downloadPDF()">Download PDF</button>      
+<hr style="margin-top: 30px;">
+<h3>🔐 Reset Data (Protected)</h3>
+<button onclick="softReset()">Reset All Records</button>
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+    let history = [];
+
+    const balanceDisplay = document.getElementById("balance");
+    const historyList = document.getElementById("historyList");
+
+    window.onload = function () {
+      const savedBalance = localStorage.getItem("bank_balance");
+      const savedHistory = localStorage.getItem("bank_history");
+
+      if (savedBalance) {
+        balance = parseFloat(savedBalance);
+      }
+
+      if (savedHistory) {
+        history = JSON.parse(savedHistory);
+        renderHistory();
+      }
+
+      updateBalanceDisplay();
+    };
+
+    function updateBalanceDisplay() {
+      balanceDisplay.textContent = balance.toFixed(2);
+      localStorage.setItem("bank_balance", balance);
+    }
+
+    function getCurrentDateTime() {
+      const now = new Date();
+      return now.toLocaleString(); 
+    }
+
+    function addMoney() {
+      const amount = parseFloat(document.getElementById("addAmount").value);
+      if (isNaN(amount) || amount <= 0) {
+        alert("Enter a valid amount to add.");
+        return;
+      }
+
+      balance += amount;
+      updateBalanceDisplay();
+      const text = `+ ₱${amount.toFixed(2)} added to savings`;
+      const date = getCurrentDateTime();
+      addToHistory(text, date, 'income');
+      document.getElementById("addAmount").value = "";
+    }
+
+    function recordExpense() {
+      const amount = parseFloat(document.getElementById("expenseAmount").value);
+      const desc = document.getElementById("expenseDesc").value.trim();
+
+      if (isNaN(amount) || amount <= 0 || desc === "") {
+        alert("Enter a valid amount and description.");
+        return;
+      }
+
+      if (amount > balance) {
+        alert("You don't have enough balance for this expense.");
+        return;
+      }
+
+      balance -= amount;
+      updateBalanceDisplay();
+      const text = `− ₱${amount.toFixed(2)} spent on ${desc}`;
+      const date = getCurrentDateTime();
+      addToHistory(text, date, 'expense');
+      document.getElementById("expenseAmount").value = "";
+      document.getElementById("expenseDesc").value = "";
+    }
+
+    function addToHistory(text, date, type, save = true) {
+      const li = document.createElement("li");
+      li.innerHTML = `${text}<span class="transaction-date">${date}</span>`;
+      li.classList.add(type);
+      historyList.prepend(li);
+
+      if (save) {
+        history.unshift({ text, date, type });
+        localStorage.setItem("bank_history", JSON.stringify(history));
+      }
+    }
+
+
+    function softReset() {
+  document.getElementById("resetPassword").value = "";
+  document.getElementById("passwordModal").style.display = "block";
+}
+
+function closePasswordModal() {
+  document.getElementById("passwordModal").style.display = "none";
+}
+
+function submitResetPassword() {
+  const password = document.getElementById("resetPassword").value;
+  if (password === "09298012") {
+    if (confirm("Are you sure you want to delete all records? This cannot be undone.")) {
+      localStorage.removeItem("bank_balance");
+      localStorage.removeItem("bank_history");
+      balance = 0;
+      history = [];
+      updateBalanceDisplay();
+      renderHistory(); 
+      alert("All records have been reset.");
+      closePasswordModal();
+    }
+  } else {
+    alert("Incorrect password. Records were not deleted.");
+  }
+}
+
+window.onclick = function (event) {
+  const modal = document.getElementById("passwordModal");
+  if (event.target === modal) {
+    closePasswordModal();
+  }
+}
+
+
+  function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFont("helvetica");
+  doc.setFontSize(10); 
+
+  doc.text("Jsavings Record", 14, 20);
+  doc.text(`Date: ${getCurrentDateTime()}`, 14, 25);
+  doc.text("--------------------------------------------------", 14, 30);
+
+  doc.setFontSize(6); 
+  const headers = ["Date", "Description", "Amount", "Balance"];
+
+  doc.text(headers[0], 16, 42);
+  doc.text(headers[1], 46, 42);
+  doc.text(headers[2], 126, 42);
+  doc.text(headers[3], 156, 42);
+
+  doc.text("--------------------------------------------------", 14, 45); 
+
+  let yOffset = 50; 
+  history.forEach((item, index) => {
+    const { text, date, type } = item;
+    const amount = text.split(" ")[1]; 
+    const balanceAfter = balance.toFixed(2); 
+
+    if (type === 'expense') {
+      doc.setTextColor(255, 0, 0); 
+    } else if (type === 'income') {
+      doc.setTextColor(0, 128, 0); 
+    }
+
+    doc.text(date, 16, yOffset + 7); 
+    doc.text(text, 46, yOffset + 7, { maxWidth: 75, align: "left" }); 
+    doc.text(`₱${amount}`, 126, yOffset + 7, { align: "right" }); 
+    doc.text(`₱${balanceAfter}`, 156, yOffset + 7, { align: "right" }); 
+    yOffset += 12; 
+
+    if (yOffset > 270) {
+      doc.addPage();
+      yOffset = 20; 
+    }
+  });
+
+  doc.text("--------------------------------------------------", 14, yOffset + 5);
+  doc.text("Thank you for using JSavings!", 14, yOffset + 15);
+  doc.save("Jsavings.pdf");
+}
+
+
+function renderHistory() {
+  historyList.innerHTML = "";
+  const recent = history.slice(0, 5);
+  recent.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `${item.text}<span class="transaction-date">${item.date}</span>`;
+    li.classList.add(item.type);
+    historyList.appendChild(li);
+  });
+
+  document.getElementById("showMoreBtn").style.display = history.length > 5 ? "block" : "none";
+}
+
+function addToHistory(text, date, type, save = true) {
+  const item = { text, date, type };
+  if (save) {
+    history.unshift(item);
+    localStorage.setItem("bank_history", JSON.stringify(history));
+  }
+  renderHistory(); 
+}
+
+function openHistoryModal() {
+  const modal = document.getElementById("historyModal");
+  const fullList = document.getElementById("fullHistoryList");
+  fullList.innerHTML = "";
+
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.innerHTML = `${item.text}<span class="transaction-date">${item.date}</span>`;
+    li.classList.add(item.type);
+    fullList.appendChild(li);
+  });
+
+  modal.style.display = "block";
+}
+
+function closeHistoryModal() {
+  document.getElementById("historyModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("historyModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
