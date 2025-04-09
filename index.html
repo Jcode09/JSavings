@@ -335,55 +335,69 @@ window.onclick = function (event) {
 }
 
 
-  function downloadPDF() {
+function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
   doc.setFont("helvetica");
-  doc.setFontSize(10); 
+  doc.setFontSize(10);
 
   doc.text("Jsavings Record", 14, 20);
   doc.text(`Date: ${getCurrentDateTime()}`, 14, 25);
   doc.text("--------------------------------------------------", 14, 30);
 
-  doc.setFontSize(6); 
+  doc.setFontSize(6);
   const headers = ["Date", "Description", "Amount", "Balance"];
 
   doc.text(headers[0], 16, 42);
   doc.text(headers[1], 46, 42);
   doc.text(headers[2], 126, 42);
   doc.text(headers[3], 156, 42);
+  doc.text("--------------------------------------------------", 14, 45);
 
-  doc.text("--------------------------------------------------", 14, 45); 
+  let yOffset = 50;
+  let runningBalance = 0;
 
-  let yOffset = 50; 
-  history.forEach((item, index) => {
+  const reversedHistory = [...history].reverse();
+
+  reversedHistory.forEach(item => {
     const { text, date, type } = item;
-    const amount = text.split(" ")[1]; 
-    const balanceAfter = balance.toFixed(2); 
+    const match = text.match(/₱([\d,]+\.\d{2})/);
+    if (!match) return;
 
-    if (type === 'expense') {
-      doc.setTextColor(255, 0, 0); 
-    } else if (type === 'income') {
-      doc.setTextColor(0, 128, 0); 
+    const amount = parseFloat(match[1].replace(/,/g, ""));
+    if (type === 'income') {
+      runningBalance += amount;
+    } else if (type === 'expense') {
+      runningBalance -= amount;
     }
 
-    doc.text(date, 16, yOffset + 7); 
-    doc.text(text, 46, yOffset + 7, { maxWidth: 75, align: "left" }); 
-    doc.text(`₱${amount}`, 126, yOffset + 7, { align: "right" }); 
-    doc.text(`₱${balanceAfter}`, 156, yOffset + 7, { align: "right" }); 
-    yOffset += 12; 
+    if (type === 'expense') {
+      doc.setTextColor(255, 0, 0);
+    } else if (type === 'income') {
+      doc.setTextColor(0, 128, 0);
+    } else {
+      doc.setTextColor(0, 0, 0);
+    }
 
+    doc.text(date, 16, yOffset + 7);
+    doc.text(text, 46, yOffset + 7, { maxWidth: 75, align: "left" });
+    doc.text(`₱${amount.toFixed(2)}`, 126, yOffset + 7, { align: "right" });
+    doc.text(`₱${runningBalance.toFixed(2)}`, 156, yOffset + 7, { align: "right" });
+
+    yOffset += 12;
     if (yOffset > 270) {
       doc.addPage();
-      yOffset = 20; 
+      yOffset = 20;
     }
   });
 
+  doc.setTextColor(0, 0, 0);
   doc.text("--------------------------------------------------", 14, yOffset + 5);
   doc.text("Thank you for using JSavings!", 14, yOffset + 15);
   doc.save("Jsavings.pdf");
 }
+
 
 
 function renderHistory() {
