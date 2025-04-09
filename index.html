@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JSavings Financial Records</title>
   <style>
-    body {
+      body {
       font-family: Arial, sans-serif;
       background: #f4f6f8;
       margin: 0;
@@ -23,35 +23,59 @@
 
     h2 {
       text-align: center;
-      color: #2c3e50;
+      color: #1b5792;
     }
 
     .balance {
       font-size: 24px;
       margin-bottom: 20px;
-      color: green;
+      color: #2ecc71; /* Green color for balance */
+      text-align: center;
+      font-weight: bold;
     }
 
     input[type="number"], input[type="text"] {
       width: 100%;
-      padding: 8px;
-      margin: 8px 0;
+      padding: 12px;
+      margin: 10px 0;
       box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
 
     button {
-      padding: 10px;
+      padding: 12px;
       margin: 8px 0;
       width: 100%;
       background: #3498db;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     button:hover {
       background: #2980b9;
+    }
+
+    /* GCash-like button styles for Export and Reset */
+    .gcash-btn {
+      background: #3498db;
+      color: white;
+      font-size: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .gcash-btn:hover {
+      background: #00c6ff;
     }
 
     .transactions {
@@ -90,87 +114,265 @@
       margin-top: 4px;
     }
    
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+    }
+
+       .modal .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      text-align: center;
+      position: relative; /* Ensure that the close button stays inside */
+    }
+
+
+    #passwordModal .modal-content input {
+      width: 80%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+
+    #passwordModal .modal-content button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .modal .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000; /* Color for close button in light mode */
+    }
+
+    #historyModal .modal-content {
+      max-width: 600px;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 0;
+      margin-left: 8px;
+      line-height: 1;
+      width: auto;
+      min-width: unset;
+    }
+
+    .delete-btn:hover {
+      color: darkred;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .transaction-date {
+      font-size: 0.75em;
+      color: gray;
+    }
+
+
+    .space {
+  margin-top: 40px; /* Adjust the space as needed */
 }
 
-.modal .modal-content {
-  background-color: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  text-align: center;
-}
 
-#passwordModal .modal-content input {
-  width: 80%;
-  padding: 8px;
-  margin: 10px 0;
-}
+  /* Dark Mode Styles */
+  body.dark-mode {
+      background: #121212; /* Dark background */
+      color: white;
+    }
 
-#passwordModal .modal-content button {
-  padding: 8px 16px;
-  cursor: pointer;
-}
+    .container.dark-mode {
+      background: #1e1e1e; /* Darker container background */
+    }
 
-.modal .close {
-  float: right;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .gcash-btn.dark-mode {
+      background: #1a73e8;
+      color: white;
+    }
 
-#historyModal .modal-content {
-  max-width: 600px;
-  text-align: left;
-  overflow-y: auto;
-  max-height: 80vh;
-}
+    .gcash-btn.dark-mode:hover {
+      background: #1565c0;
+    }
 
-.delete-btn {
-    background: none;
-    border: none;
-    color: red;
-    cursor: pointer;
-    font-size: 12px;
-    padding: 0;
-    margin-left: 8px;
-    line-height: 1;
-    width: auto;
-    min-width: unset;
-  }
+    .slider-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-  .delete-btn:hover {
-    color: darkred;
-  }
+    .slider {
+      position: relative;
+      width: 60px;
+      height: 34px;
+    }
 
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
+    .slider input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-  .transaction-date {
-    font-size: 0.75em;
-    color: gray;
-  }
+    .slider .slider-round {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 50px;
+    }
+
+    .slider input:checked + .slider-round {
+      background-color: #4CAF50;
+    }
+
+    .slider .slider-round:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      border-radius: 50px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    .slider input:checked + .slider-round:before {
+      transform: translateX(26px);
+    }
+
+    /* Dark Mode for Inputs */
+    body.dark-mode input[type="number"], 
+    body.dark-mode input[type="text"] {
+      background-color: #333;
+      color: white;
+      border: 1px solid #555;
+    }
+
+    /* Dark Mode for Transaction History */
+    body.dark-mode .transactions li {
+      background: #333;
+      border-left: 5px solid #555;
+    }
+
+    body.dark-mode .transactions li.income {
+      color: #4caf50;
+    }
+
+    body.dark-mode .transactions li.expense {
+      color: #e74c3c;
+    }
+
+    body.dark-mode .transaction-date {
+      color: #aaa;
+    }
+
+      /* Modal Dark Mode */
+      .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+       /* Modal Dark Mode */
+       .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+     /* Dark Mode for Modals */
+    .modal-content.dark-mode {
+      background-color: #333; /* Dark background for modal */
+      color: white; /* Light text color */
+    }
+
+    /* Close button dark mode */
+    .modal-content.dark-mode .close {
+      color: white; /* White close button in dark mode */
+    }
+
+    /* Ensure close button visibility in dark mode */
+    .modal .close:hover {
+      color: #e74c3c; /* Red color on hover */
+    }
+
+    /* Dark Mode Modal Styling */
+    body.dark-mode .modal {
+      background-color: rgba(0, 0, 0, 0.8); /* Darker background overlay in dark mode */
+    }
+
+
 </style>
 
-
-  </style>
-</head>
 <body>
   <div class="container">
     <h2>💰 JSavings</h2>
+    <hr class="my-4 border-0" style="border-top: 2px solid #1a73e8;">
+    <div class="space"></div>
     <div class="balance">Current Savings: ₱<span id="balance">0.00</span></div>
 
     <h3>Add Money to Savings</h3>
@@ -184,31 +386,46 @@
 
     <div class="transactions">
       <h3>Transaction History</h3>
-      <ul id="historyList"></ul>
+      <ul id="historyList">
+        <!-- Transaction items will be added dynamically here -->
+      </ul>
       <button id="showMoreBtn" onclick="openHistoryModal()">Show More</button>
 
-<div id="historyModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeHistoryModal()">&times;</span>
-    <h3>All Transactions</h3>
-    <ul id="fullHistoryList"></ul>
-  </div>
-</div>
+      <div id="historyModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeHistoryModal()">&times;</span>
+          <h3>All Transactions</h3>
+          <ul id="fullHistoryList"></ul>
+        </div>
+      </div>
 
-<div id="passwordModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closePasswordModal()">&times;</span>
-      <h3>🔐 Enter Password</h3>
-      <input type="password" id="resetPassword" placeholder="Enter password" />
-      <button onclick="submitResetPassword()">Confirm Reset</button>
-    </div>
+      <div id="passwordModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closePasswordModal()">&times;</span>
+          <h3>🔐 Enter Password</h3>
+          <input type="password" id="resetPassword" placeholder="Enter password" />
+          <button onclick="submitResetPassword()">Confirm Reset</button>
+        </div>
+      </div>
+
+      <!-- Dark/Light Mode Toggle with Modern Emojis -->
+   <div class="slider-container">
+    <span> </span> <!-- Modern Sun Emoji for Light Mode -->
+    <h5>Dark mode</h3>
+    <label class="slider">
+      <input type="checkbox" id="modeToggle" onclick="toggleMode()">
+      <span class="slider-round"></span>
+    </label>
+    <span> </span> <!-- Modern Moon Emoji for Dark Mode -->
   </div>
-  
+      
       <h3>📥 Export</h3>
-      <button onclick="downloadPDF()">Download PDF</button>      
-<hr style="margin-top: 30px;">
-<h3>🔐 Reset Data (Protected)</h3>
-<button onclick="softReset()">Reset All Records</button>
+      <button class="gcash-btn" onclick="downloadPDF()">Download PDF</button>
+
+      <hr style="margin-top: 30px;">
+      
+      <h3>🔐 Reset Data (Protected)</h3>
+      <button class="gcash-btn" onclick="softReset()">Reset All Records</button>
     </div>
   </div>
 
@@ -495,6 +712,14 @@ window.onclick = function (event) {
   }
 }
 
+    function toggleMode() {
+      const body = document.body;
+      const container = document.querySelector('.container');
+      const modals = document.querySelectorAll('.modal-content');
+      body.classList.toggle('dark-mode');
+      container.classList.toggle('dark-mode');
+      modals.forEach(modal => modal.classList.toggle('dark-mode'));
+    }
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
