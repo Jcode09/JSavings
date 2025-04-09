@@ -135,6 +135,35 @@
   max-height: 80vh;
 }
 
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+    margin-left: 8px;
+    line-height: 1;
+    width: auto;
+    min-width: unset;
+  }
+
+  .delete-btn:hover {
+    color: darkred;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .transaction-date {
+    font-size: 0.75em;
+    color: gray;
+  }
+</style>
 
 
   </style>
@@ -207,9 +236,13 @@
     };
 
     function updateBalanceDisplay() {
-      balanceDisplay.textContent = balance.toFixed(2);
-      localStorage.setItem("bank_balance", balance);
-    }
+  balanceDisplay.textContent = balance.toLocaleString("en-PH", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  localStorage.setItem("bank_balance", balance);
+}
+
 
     function getCurrentDateTime() {
       const now = new Date();
@@ -356,9 +389,14 @@ window.onclick = function (event) {
 function renderHistory() {
   historyList.innerHTML = "";
   const recent = history.slice(0, 5);
+
   recent.forEach(item => {
     const li = document.createElement("li");
-    li.innerHTML = `${item.text}<span class="transaction-date">${item.date}</span>`;
+    li.innerHTML = `
+      ${item.text}
+      <span class="transaction-date">${item.date}</span>
+      <button class="delete-btn" onclick="deleteTransaction(${item.id})">🗑️</button>
+    `;
     li.classList.add(item.type);
     historyList.appendChild(li);
   });
@@ -366,14 +404,45 @@ function renderHistory() {
   document.getElementById("showMoreBtn").style.display = history.length > 5 ? "block" : "none";
 }
 
+function deleteTransaction(id) {
+  const index = history.findIndex(item => item.id === id);
+
+  if (index !== -1) {
+    const item = history[index];
+
+    const match = item.text.match(/₱([\d,]+\.\d{2})/);
+    if (match) {
+      const amount = parseFloat(match[1].replace(/,/g, ""));
+   
+      if (item.type === "income") {
+        balance -= amount;
+      } else if (item.type === "expense") {
+        balance += amount;
+      }
+
+      updateBalanceDisplay();
+    }
+
+    history.splice(index, 1);
+    localStorage.setItem("bank_history", JSON.stringify(history));
+
+    renderHistory();
+  }
+}
+
+
 function addToHistory(text, date, type, save = true) {
-  const item = { text, date, type };
+  const id = Date.now(); // Unique ID based on timestamp
+  const item = { id, text, date, type };
+
   if (save) {
     history.unshift(item);
     localStorage.setItem("bank_history", JSON.stringify(history));
   }
-  renderHistory(); 
+
+  renderHistory();
 }
+
 
 function openHistoryModal() {
   const modal = document.getElementById("historyModal");
@@ -382,7 +451,11 @@ function openHistoryModal() {
 
   history.forEach(item => {
     const li = document.createElement("li");
-    li.innerHTML = `${item.text}<span class="transaction-date">${item.date}</span>`;
+    li.innerHTML = `
+      ${item.text}
+      <span class="transaction-date">${item.date}</span>
+      <button class="delete-btn" onclick="deleteTransaction(${item.id})">🗑️</button>
+    `;
     li.classList.add(item.type);
     fullList.appendChild(li);
   });
@@ -390,16 +463,6 @@ function openHistoryModal() {
   modal.style.display = "block";
 }
 
-function closeHistoryModal() {
-  document.getElementById("historyModal").style.display = "none";
-}
-
-window.onclick = function(event) {
-  const modal = document.getElementById("historyModal");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-}
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
