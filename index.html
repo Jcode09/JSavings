@@ -432,7 +432,7 @@ function deleteTransaction(id) {
 
 
 function addToHistory(text, date, type, save = true) {
-  const id = Date.now(); // Unique ID based on timestamp
+  const id = Date.now(); 
   const item = { id, text, date, type };
 
   if (save) {
@@ -462,6 +462,25 @@ function openHistoryModal() {
 
   modal.style.display = "block";
 }
+
+function closeHistoryModal() {
+  const modal = document.getElementById("historyModal");
+  modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+  const historyModal = document.getElementById("historyModal");
+  const passwordModal = document.getElementById("passwordModal");
+
+  if (event.target === historyModal) {
+    historyModal.style.display = "none";
+  }
+
+  if (event.target === passwordModal) {
+    passwordModal.style.display = "none";
+  }
+}
+
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
