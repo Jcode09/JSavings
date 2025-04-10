@@ -29,7 +29,7 @@
     .balance {
       font-size: 24px;
       margin-bottom: 20px;
-      color: #2ecc71; /* Green color for balance */
+      color: #2ecc71; 
       text-align: center;
       font-weight: bold;
     }
@@ -61,7 +61,6 @@
       background: #2980b9;
     }
 
-    /* GCash-like button styles for Export and Reset */
     .gcash-btn {
       background: #3498db;
       color: white;
@@ -114,7 +113,6 @@
       margin-top: 4px;
     }
    
-    /* Modal styles */
     .modal {
       display: none;
       position: fixed;
@@ -123,7 +121,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+      background-color: rgba(0, 0, 0, 0.6); 
     }
 
        .modal .modal-content {
@@ -135,7 +133,7 @@
       max-width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
       text-align: center;
-      position: relative; /* Ensure that the close button stays inside */
+      position: relative; 
     }
 
 
@@ -157,7 +155,7 @@
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
-      color: #000; /* Color for close button in light mode */
+      color: #000; 
     }
 
     #historyModal .modal-content {
@@ -198,18 +196,17 @@
 
 
     .space {
-  margin-top: 40px; /* Adjust the space as needed */
+  margin-top: 40px; 
 }
 
 
-  /* Dark Mode Styles */
   body.dark-mode {
-      background: #121212; /* Dark background */
+      background: #121212; 
       color: white;
     }
 
     .container.dark-mode {
-      background: #1e1e1e; /* Darker container background */
+      background: #1e1e1e;
     }
 
     .gcash-btn.dark-mode {
@@ -272,7 +269,6 @@
       transform: translateX(26px);
     }
 
-    /* Dark Mode for Inputs */
     body.dark-mode input[type="number"], 
     body.dark-mode input[type="text"] {
       background-color: #333;
@@ -280,7 +276,6 @@
       border: 1px solid #555;
     }
 
-    /* Dark Mode for Transaction History */
     body.dark-mode .transactions li {
       background: #333;
       border-left: 5px solid #555;
@@ -298,7 +293,6 @@
       color: #aaa;
     }
 
-      /* Modal Dark Mode */
       .modal {
       display: none;
       position: fixed;
@@ -307,7 +301,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+      background-color: rgba(0, 0, 0, 0.6); 
     }
 
     .modal-content {
@@ -321,7 +315,6 @@
       text-align: center;
     }
 
-       /* Modal Dark Mode */
        .modal {
       display: none;
       position: fixed;
@@ -330,7 +323,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6); /* Darkened background overlay */
+      background-color: rgba(0, 0, 0, 0.6); 
     }
 
     .modal-content {
@@ -344,26 +337,69 @@
       text-align: center;
     }
 
-     /* Dark Mode for Modals */
     .modal-content.dark-mode {
-      background-color: #333; /* Dark background for modal */
-      color: white; /* Light text color */
+      background-color: #333; 
+      color: white; 
     }
 
-    /* Close button dark mode */
     .modal-content.dark-mode .close {
-      color: white; /* White close button in dark mode */
+      color: white; 
     }
 
-    /* Ensure close button visibility in dark mode */
     .modal .close:hover {
-      color: #e74c3c; /* Red color on hover */
+      color: #e74c3c; 
     }
 
-    /* Dark Mode Modal Styling */
     body.dark-mode .modal {
-      background-color: rgba(0, 0, 0, 0.8); /* Darker background overlay in dark mode */
+      background-color: rgba(0, 0, 0, 0.8); 
     }
+
+    .actions-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.action-block {
+  text-align: center;
+}
+
+.action-icon {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.action-icon:hover {
+  transform: scale(1.1);
+}
+
+.action-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.action-form input {
+  width: 360px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.action-form button {
+  margin-top: 5px;
+  padding: 8px 16px;
+}
+
+.hidden {
+  display: none;
+}
 
 
 </style>
@@ -375,14 +411,28 @@
     <div class="space"></div>
     <div class="balance">Current Savings: ₱<span id="balance">0.00</span></div>
 
-    <h3>Add Money to Savings</h3>
-    <input type="number" id="addAmount" placeholder="Enter amount to add" />
-    <button onclick="addMoney()">Add to Savings</button>
-
-    <h3>Record an Expense</h3>
-    <input type="number" id="expenseAmount" placeholder="Enter expense amount" />
-    <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)" />
-    <button onclick="recordExpense()">Record Expense</button>
+    <div class="actions-wrapper">
+      <!-- Add Money -->
+      <div class="action-block">
+        <img src="assets/img/Addmoney.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
+        <div class="action-title">Add Money</div>
+        <div id="addMoneyForm" class="action-form hidden">
+          <input type="number" id="addAmount" placeholder="Enter amount to add">
+          <button onclick="addMoney()">Add to Savings</button>
+        </div>
+      </div>
+  
+      <!-- Record Expense -->
+      <div class="action-block">
+        <img src="assets/img/Expenses.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
+        <div class="action-title">Record Expense</div>
+        <div id="expenseForm" class="action-form hidden">
+          <input type="number" id="expenseAmount" placeholder="Enter expense amount">
+          <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)">
+          <button onclick="recordExpense()">Record Expense</button>
+        </div>
+      </div>
+    </div>
 
     <div class="transactions">
       <h3>Transaction History</h3>
@@ -408,15 +458,15 @@
         </div>
       </div>
 
-      <!-- Dark/Light Mode Toggle with Modern Emojis -->
+   
    <div class="slider-container">
-    <span> </span> <!-- Modern Sun Emoji for Light Mode -->
+    <span> </span> 
     <h5>Dark mode</h3>
     <label class="slider">
       <input type="checkbox" id="modeToggle" onclick="toggleMode()">
       <span class="slider-round"></span>
     </label>
-    <span> </span> <!-- Modern Moon Emoji for Dark Mode -->
+    <span> </span> 
   </div>
       
       <h3>📥 Export</h3>
@@ -720,6 +770,17 @@ window.onclick = function (event) {
       container.classList.toggle('dark-mode');
       modals.forEach(modal => modal.classList.toggle('dark-mode'));
     }
+
+
+    document.getElementById("addMoneyIcon").addEventListener("click", () => {
+  const form = document.getElementById("addMoneyForm");
+  form.classList.toggle("hidden");
+});
+
+document.getElementById("recordExpenseIcon").addEventListener("click", () => {
+  const form = document.getElementById("expenseForm");
+  form.classList.toggle("hidden");
+});
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
