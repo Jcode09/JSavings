@@ -365,16 +365,23 @@
 }
 
 .action-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers image and text horizontally */
+  justify-content: center;
   text-align: center;
 }
 
+
+/* Slightly reduce icon size */
 .action-icon {
-  width: 80px;
-  height: 80px;
+  width: 50px; 
+  height:50px;
   cursor: pointer;
   margin-bottom: 10px;
   transition: transform 0.2s ease;
 }
+
 
 .action-icon:hover {
   transform: scale(1.1);
@@ -1338,7 +1345,7 @@ body.dark-mode .slider-label {
       <!-- Add Money -->
       <div class="action-block">
        <img src="assets/img/jcashin.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
-        <div class="action-title">Add Money</div>
+       <div class="action-title">Savings</div>
         <div id="addMoneyForm" class="action-form hidden">
           <input type="number" id="addAmount" placeholder="Enter amount to add">
           <div>
@@ -1354,7 +1361,7 @@ body.dark-mode .slider-label {
       <!-- Record Expense -->
       <div class="action-block">
         <img src="assets/img/jcashout.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
-        <div class="action-title">Record Expense</div>
+        <div class="action-title">Expenses</div>
         <div id="expenseForm" class="action-form hidden">
           <input type="number" id="expenseAmount" placeholder="Enter expense amount">
           <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)">
