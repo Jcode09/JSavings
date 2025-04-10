@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <title>JSavings Financial Records</title>
   <style>
       body {
@@ -137,6 +139,7 @@
     }
 
 
+    
     #passwordModal .modal-content input {
       width: 80%;
       padding: 8px;
@@ -147,7 +150,7 @@
       padding: 8px 16px;
       cursor: pointer;
     }
-
+    
     .modal .close {
       position: absolute;
       top: 10px;
@@ -378,9 +381,18 @@
 }
 
 .action-title {
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif; /* Modern font style */
+  font-weight: 600; /* Semi-bold weight for a strong presence */
+  font-size: 1.2rem; /* Slightly larger size for better visibility */
   margin-bottom: 10px;
+  color: #333; /* Dark color for readability */
+  letter-spacing: 0.5px; /* Slight letter-spacing for a cleaner look */
+  transition: color 0.3s ease; /* Smooth color transition on hover or dark mode change */
+}
+
+/* Dark mode adjustments */
+body.dark-mode .action-title {
+  color: #f0f0f0; /* Lighter color for better contrast in dark mode */
 }
 
 .action-form input {
@@ -407,7 +419,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  background: #40B3A2;
+  background: #1a73e8;
   min-width: 200px;
   border: 0;
   border-radius: 4px;
@@ -508,7 +520,7 @@
   position: relative;
   border-radius: 50%;
   box-sizing: content-box;
-  border: 4px solid #4CAF50;
+  border: 4px solid #1a73e8;
 }
 
 .check-icon::before,
@@ -607,23 +619,486 @@
   100% { width: 47px; right: 8px; top: 38px; }
 }
 
+/* Hamburger Container & Icon */
+.hamburger-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.hamburger-icon {
+  font-size: 26px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--primary-color, #333);
+  transition: color 0.3s ease;
+}
+
+.hamburger-icon:hover {
+  color: var(--accent-color, #1a73e8);
+}
+
+/* Dropdown Menu */
+.more-options {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 250px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.more-options .option-item {
+  margin-bottom: 15px; 
+  padding: 10px 0;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode .more-options {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #fff;
+}
+
+body.dark-mode .gcash-btn {
+  background: #1a73e8;
+  color: white;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  margin-left: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-round {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 22px;
+}
+
+.slider-round:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider-round {
+  background-color: #1a73e8;
+}
+
+input:checked + .slider-round:before {
+  transform: translateX(18px);
+}
+
+
+/* Define light and dark mode colors */
+:root {
+  --footer-bg-light: #ffffff;
+  --footer-bg-dark: #333333;
+  --footer-text-light: #000000;
+  --footer-text-dark: #ffffff;
+}
+
+body {
+  background-color: #ffffff; /* Default light mode */
+  color: #000000; /* Default light mode text */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Footer Styling */
+.footer {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+.custom-card {
+    border: none; /* Remove the border */
+    border-radius: 15px;
+    background: linear-gradient(145deg, #1e88e5, #1565c0);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-card .card-body {
+    padding: 20px;
+  }
+
+  .custom-card .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .custom-card .card-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+
+
+/* Modal Background */
+#passwordModal .modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Modal Content Styling */
+#passwordModal .modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Vertically center content */
+  align-items: center;      /* Horizontally center content */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Close Button Styling */
+#passwordModal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#passwordModal .close:hover {
+  color: #000;
+}
+
+/* Heading Styling */
+#passwordModal h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Input Styling */
+#passwordModal input {
+  width: 100%;
+  max-width: 350px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+#passwordModal input:focus {
+  border-color: #1e88e5; /* Blue border on focus */
+  outline: none;
+}
+
+/* Button Styling */
+#passwordModal button {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  background-color: #1e88e5;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#passwordModal button:hover {
+  background-color: #1565c0; /* Darker blue on hover */
+}
+
+
+
+
+
+
+/* From Uiverse.io by vinodjangid07 */
+.visa-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  width: 300px;
+  height: 180px;
+  background-image: radial-gradient(
+    circle 897px at 9% 80.3%,
+    rgba(55, 60, 245, 1) 0%,
+    rgba(234, 161, 15, 0.9) 100.2%
+  );
+  border-radius: 10px;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  gap: 15px;
+  margin: 0 auto; /* Horizontally center the card */
+}
+
+.logoContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: fit-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 18px;
+}
+
+.svgLogo {
+  height: 40px;
+  width: auto;
+}
+
+.inputstyle::placeholder {
+  color: #ffffff;
+}
+
+.inputstyle {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  caret-color: red;
+  font-size: 13px;
+  height: 25px;
+  letter-spacing: 1.5px;
+}
+
+.number-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+#cardNumber {
+  width: 100%;
+  height: 25px;
+}
+
+.name-date-cvv-container {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.name-wrapper {
+  width: 60%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.expiry-wrapper,
+.cvv-wrapper {
+  width: 30%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.cvv-wrapper {
+  width: 10%;
+}
+
+#expiry,
+#cvv {
+  width: 100%;
+}
+
+.input-label {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #e2e2e2;
+  width: 100%;
+}
+
+
+.card-option-coming-soon {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500; /* Slightly lighter font weight for a more modern look */
+  color: #0260db; /* Professional blue shade */
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif; /* Modern font style */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Dark mode adjustments */
+body.dark-mode .card-option-coming-soon {
+  color: #8ab4f8; /* Lighter blue color for dark mode */
+}
+
+/* Ensure the text remains readable with a dark background */
+body.dark-mode {
+  background-color: #121212; /* Dark mode background */
+  color: #f0f0f0; /* Light text color */
+}
+
+.divider-line {
+  width: 100%;
+  margin: 0 auto 10px;
+  border-top: 2px solid #0260db; /* Blue line */
+}
+
+.transaction-divider-line {
+  width: 100%; /* Wider divider for a more prominent look */
+  margin: 10px auto; /* Centers the line and adds spacing around */
+  border-top: 3px solid #818181; /* Use a unique color for the divider */
+  border-radius: 5px; /* Rounded corners for the line */
+}
+
+.footer-divider-line {
+  width: 90%; /* Slightly wider for the footer */
+  margin: 20px auto; /* Center and add margin for spacing */
+  border-top: 2px solid #818181; /* A more striking blue for footer */
+  border-radius: 5px; /* Rounded corners */
+}
+
+
+
+/* Dark Mode Label */
+.slider-label {
+  font-family: 'Poppins', sans-serif; /* Modern font style */
+  font-weight: 500; /* Medium weight for a subtle, professional look */
+  font-size: 1rem; /* Standard readable font size */
+  color: #333; /* Dark color for light mode */
+  margin-left: 10px; /* Slight left margin for spacing */
+  letter-spacing: 0.3px; /* Clean and professional spacing */
+  transition: color 0.3s ease; /* Smooth color transition for dark mode */
+}
+
+/* Dark mode adjustments */
+body.dark-mode .slider-label {
+  color: #f0f0f0; /* Lighter color for readability in dark mode */
+}
 
 </style>
 
 <body>
   <div class="container">
-    <h2>
+    <!-- Hamburger Icon & Dropdown Menu -->
+    <div class="hamburger-container">
+      <span id="hamburgerIcon" class="hamburger-icon">☰</span>
+      <div id="hamburgerMenu" class="more-options hidden">
+        <div class="option-item">
+          <label class="slider-label">🌗 Dark mode</label>
+          <label class="switch">
+            <input type="checkbox" id="modeToggle" onclick="toggleMode()">
+            <span class="slider-round"></span>
+          </label>
+        </div>
+        <div class="option-item">
+          <button class="btn" onclick="downloadPDF()">
+            <i class="animation"></i>
+            📥 Export PDF
+            <i class="animation"></i>
+          </button>
+        </div>
+        <div class="option-item">
+          <button class="btn" onclick="softReset()">
+            <i class="animation"></i>
+            🔐 Reset All Records
+            <i class="animation"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- JSAVINGS Logo -->
+    <h2 style="text-align: center;">
       <img src="assets/img/JSavings.png" alt="JSavings Logo" style="max-width: 300px; height: auto;">
-    </h2>       
-    <!-- <hr class="my-4 border-0" style="border-top: 3px solid #1a73e8;"> -->
-    <div class="balance">Current Savings: ₱<span id="balance">0.00</span></div>
-    <hr class="my-4 border-0" style="border-top: 2px solid green; width: 50%; margin: 0 auto;">
-    <div class="space"></div>
+    </h2>      
+      <div class="custom-card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Current Savings</h5>
+          <p class="card-text">₱<span id="balance">0.00</span></p>
+        </div>
+      </div>    
+      <div class="space"></div>
+      <!-- 
+      <hr class="my-4 border-0" style="border-top: 2px solid green; width: 50%; margin: 0 auto;">
+      
+      <div class="space"></div>
+    </div>
+    Separator Line -->
 
     <div class="actions-wrapper">
       <!-- Add Money -->
       <div class="action-block">
-        <img src="assets/img/Addmoney.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
+        <img src="assets/img/add.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
         <div class="action-title">Add Money</div>
         <div id="addMoneyForm" class="action-form hidden">
           <input type="number" id="addAmount" placeholder="Enter amount to add">
@@ -639,7 +1114,7 @@
     
       <!-- Record Expense -->
       <div class="action-block">
-        <img src="assets/img/Expenses.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
+        <img src="assets/img/expense.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
         <div class="action-title">Record Expense</div>
         <div id="expenseForm" class="action-form hidden">
           <input type="number" id="expenseAmount" placeholder="Enter expense amount">
@@ -669,9 +1144,9 @@
   </div>
 </div>
 
-
-    <div class="transactions">
-      <h3>Transaction History</h3>
+<div class="transactions">
+  <h3>Transaction History</h3>
+  <hr class="transaction-divider-line">
       <ul id="historyList">
         <!-- Transaction items will be added dynamically here -->
       </ul>
@@ -684,36 +1159,103 @@
           <ul id="fullHistoryList"></ul>
         </div>
       </div>
-
+     
       <div id="passwordModal" class="modal">
         <div class="modal-content">
           <span class="close" onclick="closePasswordModal()">&times;</span>
           <h3>🔐 Enter Password</h3>
           <input type="password" id="resetPassword" placeholder="Enter password" />
-          <button onclick="submitResetPassword()">Confirm Reset</button>
+          <button class="btn" onclick="submitResetPassword()">
+            <i class="animation"></i>
+            Confirm Reset
+            <i class="animation"></i>
+          </button>
         </div>
       </div>
 
-   
-   <div class="slider-container">
-    <span> </span> 
-    <h5>Dark mode</h3>
-    <label class="slider">
-      <input type="checkbox" id="modeToggle" onclick="toggleMode()">
-      <span class="slider-round"></span>
-    </label>
-    <span> </span> 
-  </div>
+      <div class="card-option-coming-soon">
+        <hr class="divider-line">
+        <p><strong>New Card Feature Coming Soon</strong> - We're working on an exciting new card option to enhance your experience. Stay tuned!</p>
+      </div>
       
-      <h3>📥 Export</h3>
-      <button class="gcash-btn" onclick="downloadPDF()">Download PDF</button>
+      
 
-      <hr style="margin-top: 30px;">
+      <div class="visa-card">
+        <div class="logoContainer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="23"
+            height="23"
+            viewBox="0 0 48 48"
+            class="svgLogo"
+          >
+            <path
+              fill="#ff9800"
+              d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"
+            ></path>
+            <path
+              fill="#d50000"
+              d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"
+            ></path>
+            <path
+              fill="#ff3d00"
+              d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"
+            ></path>
+          </svg>
+        </div>
+        <div class="number-container">
+          <label class="input-label" for="cardNumber">CARD NUMBER</label>
+          <input
+            class="inputstyle"
+            id="cardNumber"
+            placeholder="XXXX XXXX XXXX XXXX"
+            name="cardNumber"
+            type="text"
+          />
+        </div>
       
-      <h3>🔐 Reset Data (Protected)</h3>
-      <button class="gcash-btn" onclick="softReset()">Reset All Records</button>
-    </div>
+        <div class="name-date-cvv-container">
+          <div class="name-wrapper">
+            <label class="input-label" for="holderName">CARD HOLDER</label>
+            <input
+              class="inputstyle"
+              id="holderName"
+              placeholder="JSAVINGS"
+              type="text"
+            />
+          </div>
+      
+          <div class="expiry-wrapper">
+            <label class="input-label" for="expiry">VALID THRU</label>
+            <input class="inputstyle" id="expiry" placeholder="MM/YY" type="text" />
+          </div>
+          <div class="cvv-wrapper">
+            <label class="input-label" for="cvv">CVV</label>
+            <input
+              class="inputstyle"
+              placeholder="***"
+              maxlength="3"
+              id="cvv"
+              type="password"
+            />
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Footer Section -->
+      <footer class="footer">
+        <hr class="footer-divider-line">
+      <div class="footer-content">
+        <p>&copy; 2025 JSavings Financial. All rights reserved.</p>
+        <p>Developed by <a href="https://github.com/Jcode09/JSavings" target="_blank">JSavings</a></p>
+      </div>
+    </footer>
   </div>
+</body>
+</div>
 
   <script>
     let balance = 0;
@@ -1039,9 +1581,31 @@ function showSuccessModal() {
       modal.style.display = 'none';
     }, 2000); // Hide after 2 seconds
   }
+
+
+// Toggle hamburger menu on icon click
+document.getElementById('hamburgerIcon').addEventListener('click', function (event) {
+  const menu = document.getElementById('hamburgerMenu');
+  menu.classList.toggle('hidden');
+  event.stopPropagation(); // Prevent click event from propagating to document
+});
+
+// Close hamburger menu if clicked outside of it
+document.addEventListener('click', function (event) {
+  const menu = document.getElementById('hamburgerMenu');
+  const hamburgerIcon = document.getElementById('hamburgerIcon');
+  
+  // Check if the click was outside of the hamburger icon and menu
+  if (!hamburgerIcon.contains(event.target) && !menu.contains(event.target)) {
+    menu.classList.add('hidden'); // Hide the menu
+  }
+});
+
+
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
