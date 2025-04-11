@@ -17,7 +17,7 @@
     .container {
       max-width: 500px;
       margin: auto;
-      background: white;
+      background: rgb(238, 234, 234);
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -357,7 +357,28 @@
       background-color: rgba(0, 0, 0, 0.8); 
     }
 
-    .actions-wrapper {
+  /* Unique container for action section */
+.actions-container {
+  background: #f9f9f9;
+  border-radius: 20px;
+  padding: 30px 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark mode container */
+body.dark-mode .actions-container {
+  background: #1c1c1c;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .actions-heading {
+  color: #f0f0f0;
+}
+
+.actions-wrapper {
   display: flex;
   justify-content: center;
   gap: 50px;
@@ -367,47 +388,59 @@
 .action-block {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* centers image and text horizontally */
-  justify-content: center;
+  align-items: center;
   text-align: center;
+  max-width: 360px;
 }
 
-
-/* Slightly reduce icon size */
 .action-icon {
-  width: 50px; 
-  height:50px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   margin-bottom: 10px;
   transition: transform 0.2s ease;
 }
 
-
 .action-icon:hover {
   transform: scale(1.1);
 }
 
+/* Label - Title for Actions (Savings, Expenses) */
 .action-title {
-  font-family: 'Poppins', sans-serif; /* Modern font style */
-  font-weight: 600; /* Semi-bold weight for a strong presence */
-  font-size: 1.2rem; /* Slightly larger size for better visibility */
-  margin-bottom: 10px;
-  color: #333; /* Dark color for readability */
-  letter-spacing: 0.5px; /* Slight letter-spacing for a cleaner look */
-  transition: color 0.3s ease; /* Smooth color transition on hover or dark mode change */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.90rem; /* Reduced from 1.2rem */
+  margin-bottom: 8px;
+  color: #333;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease;
 }
 
-/* Dark mode adjustments */
+/* Heading style */
+.actions-heading {
+  text-align: center; /* Align to the left */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem; /* Reduced font size */
+  margin-bottom: 20px;
+  color: #222;
+}
+
+body.dark-mode .actions-heading {
+  color: #f0f0f0;
+}
+
+
 body.dark-mode .action-title {
-  color: #f0f0f0; /* Lighter color for better contrast in dark mode */
+  color: #f0f0f0;
 }
 
 .action-form input {
-  width: 360px;
+  width: auto;
   margin-bottom: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  font-size: 0.90rem; /* smaller text */
 }
 
 
@@ -419,6 +452,7 @@ body.dark-mode .action-title {
 .hidden {
   display: none;
 }
+
 
 /* From Uiverse.io by mi-series */
 .btn {
@@ -767,28 +801,67 @@ body.dark-mode {
   text-decoration: underline;
 }
 
-
 .custom-card {
-    border: none; /* Remove the border */
-    border-radius: 15px;
-    background: linear-gradient(145deg, #1e88e5, #1565c0);
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  position: relative;
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  background: linear-gradient(270deg, #1e88e5, #1565c0, #1e88e5);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+  color: white;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  height: 200px;
+}
 
-  .custom-card .card-body {
-    padding: 20px;
-  }
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  .custom-card .card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
+.card-top {
+  display: flex;
+  justify-content: flex-start;
+}
 
-  .custom-card .card-text {
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
+.user-info {
+  text-align: left;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.account-number {
+  font-size: 0.9rem;
+  margin: 2px 0 0;
+  opacity: 0.85;
+}
+
+.card-bottom {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  text-align: right;
+}
+
+.balance-label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.card-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 5px 0 0;
+}
+
+
 
 
 
@@ -882,112 +955,160 @@ body.dark-mode {
   background-color: #1565c0; /* Darker blue on hover */
 }
 
-
-
-
-
-
-/* From Uiverse.io by vinodjangid07 */
-.visa-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
-  width: 300px;
-  height: 180px;
-  background-image: radial-gradient(
-    circle 897px at 9% 80.3%,
-    rgba(55, 60, 245, 1) 0%,
-    rgba(234, 161, 15, 0.9) 100.2%
-  );
-  border-radius: 10px;
+.credit-card.upgraded {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
   padding: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  position: relative;
-  gap: 15px;
-  margin: 0 auto; /* Horizontally center the card */
-}
-
-.logoContainer {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: fit-content;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 18px;
-}
-
-.svgLogo {
-  height: 40px;
-  width: auto;
-}
-
-.inputstyle::placeholder {
-  color: #ffffff;
-}
-
-.inputstyle {
-  background-color: transparent;
-  border: none;
-  outline: none;
+  background: linear-gradient(135deg, #001f3f, #0074d9, #39cccc);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
   color: white;
-  caret-color: red;
-  font-size: 13px;
-  height: 25px;
-  letter-spacing: 1.5px;
-}
-
-.number-container {
-  width: 100%;
-  height: fit-content;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
-#cardNumber {
-  width: 100%;
-  height: 25px;
+/* Animated Background */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.name-date-cvv-container {
-  width: 100%;
-  height: 25px;
+.card-header {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.name-wrapper {
-  width: 60%;
-  height: fit-content;
+.user-info {
   display: flex;
   flex-direction: column;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  gap: 3px;
 }
 
-.expiry-wrapper,
-.cvv-wrapper {
-  width: 30%;
-  height: fit-content;
+.card-chip {
+  width: 55px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.chip-image {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.card-number {
+  margin: 15px 0 10px;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #00000070;
+  word-spacing: 4px;
+}
+
+.card-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-holder {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 140px;
 }
 
-.cvv-wrapper {
-  width: 10%;
+.card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-#expiry,
-#cvv {
-  width: 100%;
+.card-meta {
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.9;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.input-label {
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: #e2e2e2;
-  width: 100%;
+.balance-box {
+  text-align: right;
+  top: 20px; /* Adjust the top spacing as needed */
+  right: 20px;
+  min-width: 140px;
+}
+
+.balance-label {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.balance {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-top: 2px;
+  text-shadow: 1px 1px 2px #00000040;
+}
+
+.card-logo {
+  text-align: right;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffffcc;
+  margin-top: 10px;
+}
+
+/* 🔄 Mobile Responsive */
+@media (max-width: 480px) {
+  .credit-card.upgraded {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .card-number {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+
+  .balance {
+    font-size: 1.1rem;
+  }
+
+  .card-name {
+    font-size: 0.9rem;
+  }
+
+  .card-meta {
+    font-size: 0.7rem;
+  }
+
+  .card-logo {
+    font-size: 0.9rem;
+  }
 }
 
 
@@ -995,302 +1116,7 @@ body.dark-mode {
   text-align: center;
   margin-top: 20px;
   font-size: 16px;
-  font-weight: 500; /* Slightly lighter font weight for a more modern look */
-  color: #0260db; /* Professional blue shade */
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-  font-family: 'Roboto', sans-serif; /* Modern font style */
-  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition for color changes */
 }
-
-/* Dark mode adjustments */
-body.dark-mode .card-option-coming-soon {
-  color: #8ab4f8; /* Lighter blue color for dark mode */
-}
-
-/* Ensure the text remains readable with a dark background */
-body.dark-mode {
-  background-color: #121212; /* Dark mode background */
-  color: #f0f0f0; /* Light text color */
-}
-
-.divider-line {
-  width: 100%;
-  margin: 0 auto 10px;
-  border-top: 2px solid #0260db; /* Blue line */
-}
-
-.transaction-divider-line {
-  width: 100%; /* Wider divider for a more prominent look */
-  margin: 10px auto; /* Centers the line and adds spacing around */
-  border-top: 3px solid #818181; /* Use a unique color for the divider */
-  border-radius: 5px; /* Rounded corners for the line */
-}
-
-.footer-divider-line {
-  width: 90%; /* Slightly wider for the footer */
-  margin: 20px auto; /* Center and add margin for spacing */
-  border-top: 2px solid #818181; /* A more striking blue for footer */
-  border-radius: 5px; /* Rounded corners */
-}
-
-
-
-/* Dark Mode Label */
-.slider-label {
-  font-family: 'Poppins', sans-serif; /* Modern font style */
-  font-weight: 500; /* Medium weight for a subtle, professional look */
-  font-size: 1rem; /* Standard readable font size */
-  color: #333; /* Dark color for light mode */
-  margin-left: 10px; /* Slight left margin for spacing */
-  letter-spacing: 0.3px; /* Clean and professional spacing */
-  transition: color 0.3s ease; /* Smooth color transition for dark mode */
-}
-
-/* Dark mode adjustments */
-body.dark-mode .slider-label {
-  color: #f0f0f0; /* Lighter color for readability in dark mode */
-}
-
-
-
-
-
-
-/* From Uiverse.io by Pradeepsaranbishnoi */
-.logo svg {
-  height: 48px;
-  width: 54px;
-}
-
-::selection {
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.card {
-  align-items: center;
-  background: radial-gradient(circle, white 0%, #d5d5d5 100%);
-  width: 300px;
-  height: 200px;
-  border-radius: 20px;
-  position: relative;
-  box-shadow: 3px 3px 17px 0px rgba(0, 0, 0, 0.55);
-  margin: 0 auto; /* Centers horizontally */
-}
-
-.card .remove, .card .logo {
-  position: absolute;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.card .remove {
-  top: 30px;
-  right: 30px;
-  opacity: .9;
-  color: black;
-}
-
-.card .remove:hover {
-  color: #f06b5d;
-}
-
-.card .logo {
-  top: 20px;
-  left: 30px;
-  font-size: 3em;
-  opacity: 1;
-}
-
-.card .number, .card .owner {
-  display: block;
-  position: absolute;
-  left: 30px;
-  cursor: default;
-  color: black;
-  opacity: .9;
-  transition: color .7s ease-out;
-}
-
-.card .number {
-  bottom: 60px;
-  letter-spacing: 4px;
-}
-
-.card .owner {
-  bottom: 30px;
-  letter-spacing: 1px;
-}
-
-/* Centering parent container */
-.parent-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Ensures full height */
-}
-
-
-
-
-
-
-
-/* From Uiverse.io by Praashoo7 */
-.flip-card {
-  background-color: transparent;
-  width: 300px; 
-  height: 200px; 
-  perspective: 1000px;
-  color: white;
-  margin: 0 auto; /* Centers horizontally */
-}
-
-.heading_8264 {
-  position: absolute;
-  letter-spacing: .2em;
-  font-size: 0.5em;
-  top: 2em;
-  left: 18.6em;
-}
-
-.logo {
-  position: absolute;
-  top: 6.8em;
-  left: 11.7em;
-}
-
-.chip {
-  position: absolute;
-  top: 2.3em;
-  left: 1.5em;
-}
-
-.contactless {
-  position: absolute;
-  top: 3.5em;
-  left: 12.4em;
-}
-
-.number {
-  position: absolute;
-  font-weight: bold;
-  font-size: .6em;
-  top: 8.3em;
-  left: 1.6em;
-}
-
-.valid_thru {
-  position: absolute;
-  font-weight: bold;
-  top: 635.8em;
-  font-size: .01em;
-  left: 140.3em;
-}
-
-.date_8264 {
-  position: absolute;
-  font-weight: bold;
-  font-size: 0.5em;
-  top: 13.6em;
-  left: 3.2em;
-}
-
-.name {
-  position: absolute;
-  font-weight: bold;
-  font-size: 0.5em;
-  top: 16.1em;
-  left: 2em;
-}
-
-.strip {
-  position: absolute;
-  background-color: black;
-  width: 15em;
-  height: 1.5em;
-  top: 2.4em;
-  background: repeating-linear-gradient(
-    45deg,
-    #303030,
-    #303030 10px,
-    #202020 10px,
-    #202020 20px
-  );
-}
-
-.mstrip {
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  width: 8em;
-  height: 0.8em;
-  top: 5em;
-  left: .8em;
-  border-radius: 2.5px;
-}
-
-.sstrip {
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  width: 4.1em;
-  height: 0.8em;
-  top: 5em;
-  left: 10em;
-  border-radius: 2.5px;
-}
-
-.code {
-  font-weight: bold;
-  text-align: center;
-  margin: .2em;
-  color: black;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back {
-  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 1rem;
-}
-
-.flip-card-front {
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
-}
-
-.flip-card-back {
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
-  transform: rotateY(180deg);
-}
-
-/* Centering parent container */
-.parent-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Ensures full height */
-}
-
 
 </style>
 <body>
@@ -1326,14 +1152,21 @@ body.dark-mode .slider-label {
     <!-- JSAVINGS Logo -->
     <h2 style="text-align: center;">
       <img src="assets/img/JSavings.png" alt="JSavings Logo" style="max-width: 300px; height: auto;">
-    </h2>      
-      <div class="custom-card">
-        <div class="card-body text-center">
-          <h5 class="card-title">Current Savings</h5>
+    </h2>   
+    <div class="custom-card">
+        <div class="card-top">
+          <div class="user-info">
+            <h5 class="user-name">JSavings</h5>
+            <p class="account-number">Personal Savings **** 0809 2002</p>
+          </div>
+        </div>
+      
+        <div class="card-bottom">
+          <p class="balance-label">Current Balance</p>
           <p class="card-text">₱<span id="balance">0.00</span></p>
         </div>
-      </div>    
-      <div class="space"></div>
+      </div>
+        
       <!-- 
       <hr class="my-4 border-0" style="border-top: 2px solid green; width: 50%; margin: 0 auto;">
       
@@ -1341,40 +1174,43 @@ body.dark-mode .slider-label {
     </div>
     Separator Line -->
 
-    <div class="actions-wrapper">
-      <!-- Add Money -->
-      <div class="action-block">
-       <img src="assets/img/jcashin.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
-       <div class="action-title">Savings</div>
-        <div id="addMoneyForm" class="action-form hidden">
-          <input type="number" id="addAmount" placeholder="Enter amount to add">
-          <div>
-            <button class="btn" onclick="addMoney()">
-              <i class="animation"></i>
-              Add to Savings
-              <i class="animation"></i>
-            </button>
+    <div class="actions-container">
+        <div class="actions-wrapper">
+          <!-- Add Money -->
+          <div class="action-block">
+            <img src="assets/img/jcashin.png" alt="Add Money" id="addMoneyIcon" class="action-icon">
+            <div class="action-title">Savings</div>
+            <div id="addMoneyForm" class="action-form hidden">
+              <input type="number" id="addAmount" placeholder="Enter amount to add">
+              <div>
+                <button class="btn" onclick="addMoney()">
+                  <i class="animation"></i>
+                  Add to Savings
+                  <i class="animation"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Record Expense -->
+          <div class="action-block">
+            <img src="assets/img/jcashout.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
+            <div class="action-title">Expenses</div>
+            <div id="expenseForm" class="action-form hidden">
+              <input type="number" id="expenseAmount" placeholder="Enter expense amount">
+              <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)">
+              <div>
+                <button class="btn" onclick="recordExpense()">
+                  <i class="animation"></i>
+                  Record Expense
+                  <i class="animation"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    
-      <!-- Record Expense -->
-      <div class="action-block">
-        <img src="assets/img/jcashout.png" alt="Record Expense" id="recordExpenseIcon" class="action-icon">
-        <div class="action-title">Expenses</div>
-        <div id="expenseForm" class="action-form hidden">
-          <input type="number" id="expenseAmount" placeholder="Enter expense amount">
-          <input type="text" id="expenseDesc" placeholder="Description (e.g., groceries)">
-          <div>
-            <button class="btn" onclick="recordExpense()">
-              <i class="animation"></i>
-              Record Expense
-              <i class="animation"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      
 
     <!-- Modal Container -->
 <div id="successModal" class="modal-overlay">
@@ -1424,154 +1260,36 @@ body.dark-mode .slider-label {
         <p><strong>New Card Feature Coming Soon</strong> - We're working on an exciting new card option to enhance your experience. Stay tuned!</p>
       </div>
       
-      
-
-      <div class="visa-card">
-        <div class="logoContainer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="23"
-            height="23"
-            viewBox="0 0 48 48"
-            class="svgLogo"
-          >
-            <path
-              fill="#ff9800"
-              d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"
-            ></path>
-            <path
-              fill="#d50000"
-              d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"
-            ></path>
-            <path
-              fill="#ff3d00"
-              d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"
-            ></path>
-          </svg>
-        </div>
-        <div class="number-container">
-          <label class="input-label" for="cardNumber">CARD NUMBER</label>
-          <input
-            class="inputstyle"
-            id="cardNumber"
-            placeholder="XXXX XXXX XXXX XXXX"
-            name="cardNumber"
-            type="text"
-          />
-        </div>
-      
-        <div class="name-date-cvv-container">
-          <div class="name-wrapper">
-            <label class="input-label" for="holderName">CARD HOLDER</label>
-            <input
-              class="inputstyle"
-              id="holderName"
-              placeholder="JSAVINGS"
-              type="text"
-            />
+      <div class="credit-card upgraded">
+        <div class="card-header">
+          <div class="user-info">
+            <div class="username">@jsavings</div>
           </div>
-      
-          <div class="expiry-wrapper">
-            <label class="input-label" for="expiry">VALID THRU</label>
-            <input class="inputstyle" id="expiry" placeholder="MM/YY" type="text" />
-          </div>
-          <div class="cvv-wrapper">
-            <label class="input-label" for="cvv">CVV</label>
-            <input
-              class="inputstyle"
-              placeholder="***"
-              maxlength="3"
-              id="cvv"
-              type="password"
-            />
+          <!-- Chip Image -->
+          <div class="card-chip">
+            <img src="assets/img/chip.png" alt="Card Chip" class="chip-image" />
           </div>
         </div>
+    
+        <div class="card-number">**** **** 0809 2002</div>
+    
+        <div class="card-main">
+          <div class="card-holder">
+            <div class="card-name">JSavings</div>
+            <div class="card-meta">
+              <span>****** | VALID THRU: 04/31</span>
+            </div>
+          </div>
+          <div class="balance-box">
+            <div class="balance-label">Current Balance</div>
+            <div class="balance">₱<span id="balance">0.00</span></div>
+          </div>
+        </div>
+    
+        <div class="card-logo">VISA</div>
       </div>
       
       <div class="space"></div>
-
-    <div class="card">
-      <span class="logo"><svg viewBox="0 0 256 83" height="83" width="256" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient y2="100%" y1="-2.006%" x2="54.877%" x1="45.974%" id="logosVisa0"><stop stop-color="#222357" offset="0%"></stop><stop stop-color="#254AA5" offset="100%"></stop></linearGradient></defs><path transform="matrix(1 0 0 -1 0 82.668)" d="M132.397 56.24c-.146-11.516 10.263-17.942 18.104-21.763c8.056-3.92 10.762-6.434 10.73-9.94c-.06-5.365-6.426-7.733-12.383-7.825c-10.393-.161-16.436 2.806-21.24 5.05l-3.744-17.519c4.82-2.221 13.745-4.158 23-4.243c21.725 0 35.938 10.724 36.015 27.351c.085 21.102-29.188 22.27-28.988 31.702c.069 2.86 2.798 5.912 8.778 6.688c2.96.392 11.131.692 20.395-3.574l3.636 16.95c-4.982 1.814-11.385 3.551-19.357 3.551c-20.448 0-34.83-10.87-34.946-26.428m89.241 24.968c-3.967 0-7.31-2.314-8.802-5.865L181.803 1.245h21.709l4.32 11.939h26.528l2.506-11.939H256l-16.697 79.963h-17.665m3.037-21.601l6.265-30.027h-17.158l10.893 30.027m-118.599 21.6L88.964 1.246h20.687l17.104 79.963h-20.679m-30.603 0L53.941 26.782l-8.71 46.277c-1.022 5.166-5.058 8.149-9.54 8.149H.493L0 78.886c7.226-1.568 15.436-4.097 20.41-6.803c3.044-1.653 3.912-3.098 4.912-7.026L41.819 1.245H63.68l33.516 79.963H75.473" fill="url(#logosVisa0)"></path></svg></span>
-      <span class="remove"><svg viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg"> <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path> </svg></span>
-      
-      <span class="number">**** **** **** 1320</span>
-      <span class="owner">JSAVINGS</span>
-    </div>
-  </div>
-
-  <div class="space"></div>
-  
-  <div class="flip-card">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <p class="heading_8264">MASTERCARD</p>
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="36" height="36" viewBox="0 0 48 48">
-            <path fill="#ff9800" d="M32 10A14 14 0 1 0 32 38A14 14 0 1 0 32 10Z"></path><path fill="#d50000" d="M16 10A14 14 0 1 0 16 38A14 14 0 1 0 16 10Z"></path><path fill="#ff3d00" d="M18,24c0,4.755,2.376,8.95,6,11.48c3.624-2.53,6-6.725,6-11.48s-2.376-8.95-6-11.48 C20.376,15.05,18,19.245,18,24z"></path>
-            </svg>
-            <svg version="1.1" class="chip" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 50 50" xml:space="preserve">  <image id="image0" width="50" height="50" x="0" y="0" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB6VBMVEUAAACNcTiVeUKVeUOY
-              fEaafEeUeUSYfEWZfEaykleyklaXe0SWekSZZjOYfEWYe0WXfUWXe0WcgEicfkiXe0SVekSXekSW
-              ekKYe0a9nF67m12ZfUWUeEaXfESVekOdgEmVeUWWekSniU+VeUKVeUOrjFKYfEWliE6WeESZe0GS
-              e0WYfES7ml2Xe0WXeESUeEOWfEWcf0eWfESXe0SXfEWYekSVeUKXfEWxklawkVaZfEWWekOUekOW
-              ekSYfESZe0eXekWYfEWZe0WZe0eVeUSWeETAnmDCoWLJpmbxy4P1zoXwyoLIpWbjvXjivnjgu3bf
-              u3beunWvkFWxkle/nmDivXiWekTnwXvkwHrCoWOuj1SXe0TEo2TDo2PlwHratnKZfEbQrWvPrWua
-              fUfbt3PJp2agg0v0zYX0zYSfgkvKp2frxX7mwHrlv3rsxn/yzIPgvHfduXWXe0XuyIDzzISsjVO1
-              lVm0lFitjVPzzIPqxX7duna0lVncuHTLqGjvyIHeuXXxyYGZfUayk1iyk1e2lln1zYTEomO2llrb
-              tnOafkjFpGSbfkfZtXLhvHfkv3nqxH3mwXujhU3KqWizlFilh06khk2fgkqsjlPHpWXJp2erjVOh
-              g0yWe0SliE+XekShhEvAn2D///+gx8TWAAAARnRSTlMACVCTtsRl7Pv7+vxkBab7pZv5+ZlL/UnU
-              /f3SJCVe+Fx39naA9/75XSMh0/3SSkia+pil/KRj7Pr662JPkrbP7OLQ0JFOijI1MwAAAAFiS0dE
-              orDd34wAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfnAg0IDx2lsiuJAAACLElEQVRIx2Ng
-              GAXkAUYmZhZWPICFmYkRVQcbOwenmzse4MbFzc6DpIGXj8PD04sA8PbhF+CFaxEU8iWkAQT8hEVg
-              OkTF/InR4eUVICYO1SIhCRMLDAoKDvFDVhUaEhwUFAjjSUlDdMiEhcOEItzdI6OiYxA6YqODIt3d
-              I2DcuDBZsBY5eVTr4xMSYcyk5BRUOXkFsBZFJTQnp6alQxgZmVloUkrKYC0qqmji2WE5EEZuWB6a
-              lKoKdi35YQUQRkFYPpFaCouKIYzi6EDitJSUlsGY5RWVRGjJLyxNy4ZxqtIqqvOxaVELQwZFZdkI
-              JVU1RSiSalAt6rUwUBdWG1CP6pT6gNqwOrgCdQyHNYR5YQFhDXj8MiK1IAeyN6aORiyBjByVTc0F
-              qBoKWpqwRCVSgilOaY2OaUPw29qjOzqLvTAchpos47u6EZyYnngUSRwpuTe6D+6qaFQdOPNLRzOM
-              1dzhRZyW+CZouHk3dWLXglFcFIflQhj9YWjJGlZcaKAVSvjyPrRQ0oQVKDAQHlYFYUwIm4gqExGm
-              BSkutaVQJeomwViTJqPK6OhCy2Q9sQBk8cY0DxjTJw0lAQWK6cOKfgNhpKK7ZMpUeF3jPa28BCET
-              amiEqJKM+X1gxvWXpoUjVIVPnwErw71nmpgiqiQGBjNzbgs3j1nus+fMndc+Cwm0T52/oNR9lsdC
-              S24ra7Tq1cbWjpXV3sHRCb1idXZ0sGdltXNxRateRwHRAACYHutzk/2I5QAAACV0RVh0ZGF0ZTpj
-              cmVhdGUAMjAyMy0wMi0xM1QwODoxNToyOSswMDowMEUnN7UAAAAldEVYdGRhdGU6bW9kaWZ5ADIw
-              MjMtMDItMTNUMDg6MTU6MjkrMDA6MDA0eo8JAAAAKHRFWHRkYXRlOnRpbWVzdGFtcAAyMDIzLTAy
-              LTEzVDA4OjE1OjI5KzAwOjAwY2+u1gAAAABJRU5ErkJggg=="></image>
-            </svg>
-            <svg version="1.1" class="contactless" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50" xml:space="preserve">  <image id="image0" width="50" height="50" x="0" y="0" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-              AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZ
-              cwAACxMAAAsTAQCanBgAAAAHdElNRQfnAg0IEzgIwaKTAAADDklEQVRYw+1XS0iUURQ+f5qPyjQf
-              lGRFEEFK76koKGxRbWyVVLSOgsCgwjZBJJYuKogSIoOonUK4q3U0WVBWFPZYiIE6kuArG3VGzK/F
-              fPeMM/MLt99/NuHdfPd888/57jn3nvsQWWj/VcMlvMMd5KRTogqx9iCdIjUUmcGR9ImUYowyP3xN
-              GQJoRLVaZ2DaZf8kyjEJALhI28ELioyiwC+Rc3QZwRYyO/DH51hQgWm6DMIh10KmD4u9O16K49it
-              VoPOAmcGAWWOepXIRScAoJZ2Frro8oN+EyTT6lWkkg6msZfMSR35QTJmjU0g15tIGSJ08ZZMJkJk
-              HpNZgSkyXosS13TkJpZ62mPIJvOSzC1bp8vRhhCakEk7G9/o4gmZdbpsTcKu0m63FbnBP9Qrc15z
-              bkbemfgNDtEOI8NO5L5O9VYyRYgmJayZ9nPaxZrSjW4+F6Uw9yQqIiIZwhp2huQTf6OIvCZyGM6g
-              DJBZbyXifJXr7FZjGXsdxADxI7HUJFB6iWvsIhFpkoiIiGTJfjJfiCuJg2ZEspq9EHGVpYgzKqwJ
-              qSAOEwuJQ/pxPvE3cYltJCLdxBLiSKKIE5HxJKcTRNeadxfhDiuYw44zVs1dxKwRk/uCxIiQkxKB
-              sSctRVAge9g1E15EHE6yRUaJecRxcWlukdRIbGFOSZCMWQA/iWauIP3slREHXPyliqBcrrD71Amz
-              Z+rD1Mt2Yr8TZc/UR4/YtFnbijnHi3UrN9vKQ9rPaJf867ZiaqDB+czeKYmd3pNa6fuI75MiC0uX
-              XSR5aEMf7s7a6r/PudVXkjFb/SsrCRfROk0Fx6+H1i9kkTGn/E1vEmt1m089fh+RKdQ5O+xNJPUi
-              cUIjO0Dm7HwvErEr0YxeibL1StSh37STafE4I7zcBdRq1DiOkdmlTJVnkQTBTS7X1FYyvfO4piaI
-              nKbDCDaT2anLudYXCRFsQBgAcIF2/Okwgvz5+Z4tsw118dzruvIvjhTB+HOuWy8UvovEH6beitBK
-              xDyxm9MmISKCWrzB7bSlaqGlsf0FC0gMjzTg6GgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMDIt
-              MTNUMDg6MTk6NTYrMDA6MDCjlq7LAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIzLTAyLTEzVDA4OjE5
-              OjU2KzAwOjAw0ssWdwAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyMy0wMi0xM1QwODoxOTo1Nisw
-              MDowMIXeN6gAAAAASUVORK5CYII="></image>
-            </svg>
-            <p class="number">9759 2484 5269 6576</p>
-            <p class="valid_thru">VALID THRU</p>
-            <p class="date_8264">1 2 / 31</p>
-            <p class="name">JSAVINGS</p>
-        </div>
-        <div class="flip-card-back">
-            <div class="strip"></div>
-            <div class="mstrip"></div>
-            <div class="sstrip">
-              <p class="code">***</p>
-            </div>
-        </div>
-    </div>
-</div>
 
       <!-- Footer Section -->
       <footer class="footer">
@@ -1713,7 +1431,6 @@ window.onclick = function (event) {
   }
 }
 
-
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -1736,6 +1453,8 @@ function downloadPDF() {
 
   let yOffset = 50;
   let runningBalance = 0;
+  let totalIncome = 0;
+  let totalExpense = 0;
 
   const reversedHistory = [...history].reverse();
 
@@ -1745,18 +1464,17 @@ function downloadPDF() {
     if (!match) return;
 
     const amount = parseFloat(match[1].replace(/,/g, ""));
-    if (type === 'income') {
-      runningBalance += amount;
-    } else if (type === 'expense') {
-      runningBalance -= amount;
-    }
 
-    if (type === 'expense') {
-      doc.setTextColor(255, 0, 0);
-    } else if (type === 'income') {
-      doc.setTextColor(0, 128, 0);
+    if (type === 'income') {
+      totalIncome += amount;
+      runningBalance += amount;
+      doc.setTextColor(0, 128, 0); // green
+    } else if (type === 'expense') {
+      totalExpense += amount;
+      runningBalance -= amount;
+      doc.setTextColor(255, 0, 0); // red
     } else {
-      doc.setTextColor(0, 0, 0);
+      doc.setTextColor(0, 0, 0); // default
     }
 
     doc.text(date, 16, yOffset + 7);
@@ -1773,7 +1491,18 @@ function downloadPDF() {
 
   doc.setTextColor(0, 0, 0);
   doc.text("--------------------------------------------------", 14, yOffset + 5);
-  doc.text("Thank you for using JSavings!", 14, yOffset + 15);
+  yOffset += 12;
+
+  // 💰 Totals Summary Section
+  doc.setFontSize(8);
+  doc.text(`Total Savings: ₱${totalIncome.toFixed(2)}`, 14, yOffset);
+  yOffset += 7;
+  doc.text(`Total Expenses: ₱${totalExpense.toFixed(2)}`, 14, yOffset);
+  yOffset += 10;
+
+  doc.setFontSize(6);
+  doc.text("Thank you for using JSavings!", 14, yOffset + 5);
+
   doc.save("Jsavings.pdf");
 }
 
