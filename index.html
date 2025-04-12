@@ -1115,44 +1115,48 @@ body.dark-mode {
 </style>
 <body>
   <div class="container">
-    <!-- Hamburger Icon & Dropdown Menu -->
-    <div class="hamburger-container">
-      <span id="hamburgerIcon" class="hamburger-icon">☰</span>
-      <div id="hamburgerMenu" class="more-options hidden">
-        <div class="option-item">
-          <label class="slider-label">🌗 Dark mode</label>
-          <label class="switch">
-            <input type="checkbox" id="modeToggle" onclick="toggleMode()">
-            <span class="slider-round"></span>
-          </label>
-        </div>
-        <div class="option-item">
-          <button class="btn" onclick="downloadPDF()">
-            <i class="animation"></i>
-            📥 Export PDF
-            <i class="animation"></i>
-          </button>
-        </div>
-        <div class="option-item">
-          <button class="btn" onclick="softReset()">
-            <i class="animation"></i>
-            🔐 Reset All Records
-            <i class="animation"></i>
-          </button>
+    <!-- Top Bar: Logo on the left, Hamburger Icon on the right -->
+    <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between;">
+      
+      <!-- Logo on the left -->
+      <img src="assets/img/JSavings.png" alt="JSavings Logo" style="height: 30px; width: auto;">
+  
+      <!-- Hamburger Icon & Dropdown Menu on the right -->
+      <div class="hamburger-container" style="position: relative;">
+        <span id="hamburgerIcon" class="hamburger-icon">☰</span>
+        <div id="hamburgerMenu" class="more-options hidden">
+          <div class="option-item">
+            <label class="slider-label">🌗 Dark mode</label>
+            <label class="switch">
+              <input type="checkbox" id="modeToggle" onclick="toggleMode()">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+          <div class="option-item">
+            <button class="btn" onclick="downloadPDF()">
+              <i class="animation"></i>
+              📥 Export PDF
+              <i class="animation"></i>
+            </button>
+          </div>
+          <div class="option-item">
+            <button class="btn" onclick="softReset()">
+              <i class="animation"></i>
+              🔐 Reset All Records
+              <i class="animation"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  
+
     <!-- JSAVINGS Logo -->
-    <hr class="divider-line">
-    <h2 style="text-align: center;">
-      <img src="assets/img/JSavings.png" alt="JSavings Logo" style="max-width: 300px; height: auto;">
-    </h2>   
+    <hr class="divider-line"> 
     <div class="custom-card">
       <div class="card-top">
         <div class="user-info">
           <h5 class="user-name">JSavings</h5>
-          <p class="account-number">Personal Savings **** ****</p>
+          <p class="account-number">Personal Savings **** **** 2002</p>
         </div>
       </div>
       <div class="card-bottom">
